@@ -19,9 +19,12 @@ func Merge(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 
 	if l1.value < l2.value {
+		// 在这一层我找到了下一个节点 就是l1
 		l1.next = Merge(l1.next, l2)
-		return l1
+		return l1 // 确定这一层 向上提供子节点， 向下提供父节点
 	}
+
+	// 这一层我也找到了下一个节点 l2
 	l2.next = Merge(l1, l2.next)
 	return l2
 }
