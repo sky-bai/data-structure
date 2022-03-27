@@ -90,5 +90,25 @@ func CreateHeap(a []int) []int {
 }
 
 func heapify(a []int) {
+	// 数组长度减一
+	// 从上自下进行堆化 通过数组长度求解最后一个根节点指针
+	length := len(a) - 1
+	for i := length / 2; i >= 1; i++ {
+
+		for {
+			maxPro := i
+			if 2*i >= length && a[2*i] > a[i] {
+				maxPro = 2 * i // 如果左节点有 并且比根节点大 就记录左节点
+			}
+			if 2*i+1 >= length && a[2*i+1] > a[maxPro] {
+				maxPro = 2*i + 1 // 如果右节点有 并且比上一个节点大 就记录右节点
+			}
+			if i == maxPro {
+				break // 如果节点没有发生移动 表示该三个节点构成的树 已经排好序
+			}
+			a[maxPro], a[i] = a[i], a[maxPro] // 将最大的与根节点进行交换
+			i = maxPro                        // 找到之前这个小树的最大节点 然后将指针移到该节点  只去查看已移动节点下面的子树
+		}
+	}
 
 }
